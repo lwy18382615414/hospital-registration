@@ -1,0 +1,20 @@
+
+body {
+  font-size: 14px;
+  letter-spacing: 1px;
+  font-family: Helvetica Neue, Helvetica, Arial, PingFang SC, Hiragino Sans GB, Heiti SC, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
+}
+
+.el-popover.hosname-el-popover {
+  max-height: 40%;
+  overflow: auto;
+
+  .hosname {
+    font-size: 16px;
+    padding: 10px 10px
+  }
+
+  .hosname:hover {
+    background: #f0f2f5;
+  }
+}

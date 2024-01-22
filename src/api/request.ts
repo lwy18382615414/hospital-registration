@@ -76,6 +76,22 @@ export async function getHospitalRegionMapping(): Promise<any> {
     })
 }
 
+// 根据医院名称获取医院列表
+export async function getHospitalListByName(
+    hosnaem: string
+): Promise<any> {
+    return new Promise((resolve, reject) => {
+        request
+            .get(`/hosp/hospital/findByHosname/${hosnaem}`)
+            .then((res) => {
+                resolve(res.data)
+            })
+            .catch((err) => {
+                reject(err)
+            })
+    })
+}
+
 //获取医院列表
 export async function getHospitalList(
     currentPage: number,
@@ -95,6 +111,22 @@ export async function getHospitalList(
                     status: hospitalParam?.status,
                 }
             })
+            .then((res) => {
+                resolve(res.data)
+            })
+            .catch((err) => {
+                reject(err)
+            })
+    })
+}
+
+//获取医院详情
+export async function getHospitalDetail(
+    hoscode: string
+): Promise<any> {
+    return new Promise((resolve, reject) => {
+        request
+            .get(`/hosp/hospital/${hoscode}`)
             .then((res) => {
                 resolve(res.data)
             })

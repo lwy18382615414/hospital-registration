@@ -1,8 +1,8 @@
 <template>
-  <div v-if="hospitalLists.length !== 0">
+  <div v-if="hospitalList.length !== 0">
     <div class="card-container">
-      <template v-for="hospital in hospitalLists" :key="hospital.id">
-        <el-card v-if="hospital.hostype" class="box-card" shadow="hover">
+      <template v-for="hospital in hospitalList" :key="hospital.id">
+        <el-card class="box-card" shadow="hover" @click="handleClick(hospital.hoscode)">
           <div class="hos-describe">
             <div class="hos-describe__name">
               {{ hospital.hosname }}
@@ -14,7 +14,7 @@
           </span>
               <span class="hos-describe__tips__time">
             <el-icon><Clock/></el-icon>
-            <span>每天{{ hospital.bookingRule.releaseTime }}放号</span>
+            <span>每天{{ hospital.bookingRule?.releaseTime }}放号</span>
           </span>
             </div>
           </div>
@@ -43,12 +43,12 @@
 
 <script setup lang="ts">
 import {Clock, StarFilled} from "@element-plus/icons-vue";
-import {computed, ComputedRef, PropType} from "vue";
+import {PropType} from "vue";
 import {HospitalDetail} from "@/components/hospital-card/type.ts";
 
-const emit = defineEmits(["handleSize", "handleCurrent"])
+const emit = defineEmits(["handleSize", "handleCurrent", "handleToDetail"])
 
-const props = defineProps({
+defineProps({
   hospitalList: {
     type: Array as PropType<Array<HospitalDetail>>,
     default: () => [],
@@ -67,17 +67,16 @@ const props = defineProps({
   }
 })
 
-const hospitalLists: ComputedRef<Array<HospitalDetail>> = computed(() => {
-  return props.hospitalList?.filter(item => item.hostype)
-})
-
 function handleSizeChange(size: number) {
   emit("handleSize", size)
 }
 
 function handleCurrentChange(currentPage: number) {
   emit("handleCurrent", currentPage)
+}
 
+function handleClick(code: string) {
+  emit("handleToDetail", code)
 }
 </script>
 
@@ -87,9 +86,11 @@ function handleCurrentChange(currentPage: number) {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-content: flex-start;
 
   .box-card {
     width: 48%;
+    max-height: 100px;
     margin-bottom: 20px;
 
     :deep(.el-card__body) {

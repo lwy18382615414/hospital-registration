@@ -1,6 +1,6 @@
 <template>
   <div>
-  123
+
   </div>
 </template>
 
@@ -8,6 +8,6 @@
 
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 
 </style>

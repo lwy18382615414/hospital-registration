@@ -21,3 +21,9 @@ export interface HospitalDetail {
     hostype: string;
     hoscode: string;
 }
+
+export interface HospitalType {
+    id: number | string;
+    name: string;
+    value: string | undefined;
+}
